@@ -10,15 +10,21 @@ from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, RetrieveDestroyAPIView, RetrieveUpdateAPIView
 from rest_framework import mixins
 from rest_framework import viewsets
-from .permission import IsOwnerOrReadOnly
+from blog.api.v1.permission import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
-from .paginations import DefaultPagination
+from blog.api.v1.paginations import DefaultPagination
+from rest_framework.decorators import action
+
+
 
 # data = {
 #     'id':1,
 #     'title':'hello'
 # }
+
+
+
 
 # """"""""""""""""""""""""""@api_view(["GET","POST"])""""""""""""""""""""""""""
 """ getting a list of post and creating new posts"""
@@ -40,8 +46,8 @@ from .paginations import DefaultPagination
 #         serializer.is_valid(raise_exception=True)
 #         serializer.save()
 #         return Response(serializer.data)
-
-
+#"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# """"""""""""""""""""""""""@api_view(["GET","PUT","DELETE"])""""""""""""""""""""""""""
 """ getting a list of post and creating,delete,update posts"""
 # @api_view(["GET","PUT","DELETE"])
 # @permission_classes([IsAuthenticatedOrReadOnly])
@@ -53,7 +59,8 @@ from .paginations import DefaultPagination
 #     #     # print(serializer.data)
 #     #     return Response(serializer.data)
 #     # except Post.DoesNotExist:
-#         # return Response({"detail":"post dose not exist"},status=status.HTTP_404_NOT_FOUND)
+#         # return Response({"detail":"post dose not exist"},
+#                                                   status=status.HTTP_404_NOT_FOUND)
     
 #         post = get_object_or_404(Post, pk=id, status=True)
 #         if  request.method == 'GET':
@@ -66,11 +73,12 @@ from .paginations import DefaultPagination
 #             return Response(serializer.data)
 #         elif request.method == "DELETE":
 #             post.delete()
-#             return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
-            
+#             return Response({"detail":"Item removed successfully"},
+#                                                           status=status.HTTP_204_NO_CONTENT)
+#"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""           
 
 
-# """"""""""""""""""""""""""(APIView)""""""""""""""""""""""""""
+# """"""""""""""""""""""""""(APIView PostList)""""""""""""""""""""""""""""""""""""""""""
 # class PostList(APIView):
 #     """ getting a list of post and creating new posts"""
 #     permission_classes =[IsAuthenticated]
@@ -88,32 +96,36 @@ from .paginations import DefaultPagination
 #         serializer.is_valid(raise_exception=True)
 #         serializer.save()
 #         return Response(serializer.data)
-       
-'''class PostDetail(APIView):
-    """ getting detail of the post and edit plus removing it"""
-    permission_classes =[IsAuthenticated]
-    serializer_class = PostSerializer
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+# """"""""""""""""""""""""""(APIView PostList)""""""""""""""""""""""""""""""""""""""""""
+# class PostDetail(APIView):
+#     """ getting detail of the post and edit plus removing it"""
+#     permission_classes =[IsAuthenticated]
+#     serializer_class = PostSerializer
     
-    """retrieving the post data"""
-    def get(self,request,id):
-        post =  get_object_or_404(Post, pk=id, status=True)
-        serializer = self.serializer_class(post)
-        return Response(serializer.data)
-    """editing the post data"""
-    def put(self,request,id):
-        post =  get_object_or_404(Post, pk=id, status=True)
-        serializer = self.serializer_class(post)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-    """ deleting the post object """
-    def delete(self,request,id):
-        post = get_object_or_404(Post, pk=id, status=True)
-        post.delete()
-        return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)'''
+#     """retrieving the post data"""
+#     def get(self,request,id):
+#         post =  get_object_or_404(Post, pk=id, status=True)
+#         serializer = self.serializer_class(post)
+#         return Response(serializer.data)
+#     """editing the post data"""
+#     def put(self,request,id):
+#         post =  get_object_or_404(Post, pk=id, status=True)
+#         serializer = self.serializer_class(post)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#     """ deleting the post object """
+#     def delete(self,request,id):
+#         post = get_object_or_404(Post, pk=id, status=True)
+#         post.delete()
+#         return Response({"detail":"Item removed successfully"},
+#                         status=status.HTTP_204_NO_CONTENT)
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
                  
        
-#  """"""""""""""""""""""""""(GenericAPIView,mixins)""""""""""""""""""""""""""    
+#  """"""""""""""""""""""""""(GenericAPIView,mixins)""""""""""""""""""""""""""""""""""""    
 # class PostList(GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin):
 #     """ getting a list of post and creating new posts"""
 #     permission_classes =[IsAuthenticated]
@@ -127,9 +139,11 @@ from .paginations import DefaultPagination
 #     """creating a post with provided data"""    
 #     def post(self, request, *args, **kwargs):
 #         return self.create(request, *args, **kwargs)
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-   
-'''class PostDetail(GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+#  """"""""""""""""""""""""""(GenericAPIView,mixins)""""""""""""""""""""""""""""""""""""       
+'''class PostDetail(GenericAPIView, mixins.RetrieveModelMixin, 
+                                    mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     """ getting detail of the post and edit plus removing it"""
     permission_classes =[IsAuthenticated]
     serializer_class = PostSerializer
@@ -145,16 +159,19 @@ from .paginations import DefaultPagination
     
     """ deleting the post object """
     def delete(self,request,*args,**kwargs):
-        return self.destroy(request,*args,**kwargs)
-         '''
-#  """"""""""""""""""""""""""(APIView)""""""""""""""""""""""""""    
+        return self.destroy(request,*args,**kwargs)'''
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+#  """"""""""""""""""""""""""(APIView-PostList)""""""""""""""""""""""""""""""""""""""""""  
 # class PostList(ListCreateAPIView):
 #     """ getting a list of post and creating new posts"""
 #     permission_classes =[IsAuthenticated]
 #     serializer_class = PostSerializer
 #     queryset = Post.objects.filter(status=True)
-    
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  
+#  """"""""""""""""""""""""""(APIView-PostDetail)""""""""""""""""""""""""""""""""""""""" 
 # class PostDetail(RetrieveUpdateDestroyAPIView):
 #     """ getting detail of the post and edit plus removing it"""
 #     permission_classes =[IsAuthenticated]
@@ -172,51 +189,92 @@ from .paginations import DefaultPagination
 #     """ deleting the post object """
 #     def delete(self,request,*args,**kwargs):
 #         return self.destroy(request,*args,**kwargs)
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-
+#  """"""""""""""""""""""""""(ViewSets in CBV)""""""""""""""""""""""""""""""""""""""""""
 # # Example for ViewSets in CBV
-# class PostViewSet(viewsets.viewsets):
-#     """ getting a list of post and creating new posts"""
-#     permission_classes =[IsAuthenticated]
+# class PostViewSet(viewsets.ViewSet):
+#     """Getting a list of posts and creating new posts"""
+#     permission_classes = [IsAuthenticatedOrReadOnly]
 #     serializer_class = PostSerializer
-#     queryset = Post.objects.filter(status=True)   
-    
-#     def list(self,request):
-#         serializer = self.serializer_class(self.queryset, many=True)    
-#         return Response(serializer.data)  
-    
+#     queryset = Post.objects.filter(status=True)
+
+#     def list(self, request):
+#         serializer = self.serializer_class(self.queryset, many=True)
+#         return Response(serializer.data)
+
 #     def retrieve(self, request, pk=None):
 #         post_object = get_object_or_404(self.queryset, pk=pk)
-#         serializer = self.serializer_class(post_object)    
-#         return Response(serializer.data) 
-    
-#     def create (self, request):
-#         pass
-    
-#     def update(self,request,pk=None):
-#         pass
-    
-#     def partial_update(self,request,pk=None):
-#         pass
-    
-#     def destroy(self,request,pk=None):
-#         pass
+#         serializer = self.serializer_class(post_object)
+#         return Response(serializer.data)
 
+#     def create(self, request):
+#         # Serialize the data from the request
+#         serializer = self.serializer_class(data=request.data)
+        
+#         # Check if the data is valid
+#         if serializer.is_valid():
+#             # Save the new post to the database
+#             serializer.save()
+
+#             # Return a successful response with the created data
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+#         # If the data is invalid, return a bad request response with errors
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def update(self, request, pk=None):
+#         post_object = get_object_or_404(self.queryset, pk=pk)
+#         serializer = self.serializer_class(post_object, data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def partial_update(self, request, pk=None):
+#         post_object = get_object_or_404(self.queryset, pk=pk)
+#         serializer = self.serializer_class(post_object, data=request.data, partial=True)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def destroy(self, request, pk=None):
+#         post_object = get_object_or_404(self.queryset, pk=pk)
+#         post_object.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+#  """"""""""""""""""""""""""(ModelViewSet in CBV)"""""""""""""""""""""""""""""""""""""""
 # Example for ModelViewSet in CBV
 class PostModelViewSet(viewsets.ModelViewSet):
     """ getting a CRUD for posts"""
     permission_classes =[IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
+
+    #for extra link 
+    # @action(method=["get"],detail=False)
+    # def get_test(self,request):
+    #     return Response({"detail":"ok"})
+
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
-    filterset_fields = ['status', 'author', 'category']
+    filterset_fields = {'status':['exact'], 'author':['exact'], 'category':['exact']}
     ordering_fields = ['published_date']
     pagination_class = DefaultPagination
+# """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+
+#  """"""""""""""""""""""""""(ModelViewSet in CBV)"""""""""""""""""""""""""""""""""""""""
 # Example for ModelViewSet in CBV
 class CategoryModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-      
+ # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+     
