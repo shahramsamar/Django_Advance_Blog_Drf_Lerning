@@ -3,12 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ object.title }} - Post Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .post-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1> {{ object.title}}</h1>
-    <hr>
-    <small> {{ object.author} - {{ object.published_date}}</small>
-    <p> {{ object.content}}</p>
+    <div class="post-container">
+        <h1>{{ object.title }}</h1>
+        <p>{{ object.content }}</p>
+        <h2>status:
+            {% if object.status %}
+                Published
+            {% else %}
+              no Published
+            {% endif %}  
+
+        </h2>
+    </div>
 </body>
 </html>
