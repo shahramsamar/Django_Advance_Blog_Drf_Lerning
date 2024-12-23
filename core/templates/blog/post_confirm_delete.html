@@ -1,6 +1,66 @@
-<form method="post" >{% csrf_token %}
-    <p> Are you sure you want to delete "{{ object }}"?</p>
-
-        <input type="submit" value="Confirm">
-        <!-- <input type="submit" value="exit"> -->
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 40%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .container p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .container input[type="submit"] {
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        .container input[type="submit"].confirm {
+            background-color: green;
+        }
+        .container a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        .container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{ object }}"?</p>
+            <input type="submit" value="Confirm" class="confirm">
+        </form>
+        <a href="/" class="back">Back</a>
+    </div>
+</body>
+</html>
