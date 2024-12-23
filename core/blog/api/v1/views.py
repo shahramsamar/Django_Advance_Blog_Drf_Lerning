@@ -267,7 +267,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
     filterset_fields = {'status':['exact'], 'author':['exact'], 'category':['exact']}
-    # SearchFilter =['title']
+    # Search_fields =['title']
     ordering_fields = ['published_date']
     pagination_class = DefaultPagination
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
