@@ -63,16 +63,13 @@ docker-compose exec backend sh -c "python manage.py makemigrations"
 docker-compose exec backend sh -c "python manage.py migrate"
 docker-compose exec backend sh -c "python manage.py collectstatic"
 
- docker-compose exec backend sh -c "python manage.py createsuperuser"
- docker-compose exec backend sh -c "python manage.py changepassword username or email"
+docker-compose exec backend sh -c "python manage.py createsuperuser"
+docker-compose exec backend sh -c "python manage.py changepassword username or email"
 
  # djangorestframework
  docker-compose exec backend sh -c "pip install djangorestframework"
  docker-compose exec backend sh -c "pip install markdown"
  docker-compose exec backend sh -c "pip install django-filter"
-
-
 # coreapi
-
 docker-compose exec backend sh -c "pip install coreapi"
 
