@@ -3,42 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Post List</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f4f8;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #1d3557;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header img {
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .header span {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .auth-buttons a {
+            margin-left: 15px;
+            color: white;
+            text-decoration: none;
+            background-color: #457b9d;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+        }
+        .auth-buttons a:hover {
+            background-color: #1d3557;
+        }
+        .container {
+            flex: 1;
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 30px;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #457b9d;
+            margin: 0;
+            font-size: 20px;
+        }
+        .post-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post-item:last-child {
+            border-bottom: none;
+        }
+        .buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .buttons a, .buttons button {
+            background-color: #457b9d;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .buttons a:hover, .buttons button:hover {
+            background-color: #1d3557;
+        }
+        .buttons button {
+            background-color: #e63946;
+        }
+        .buttons button:hover {
+            background-color: #b51d2b;
+        }
+        .btn-disabled {
+            background-color: #e0e0e0;
+            color: #777;
+            cursor: not-allowed;
+        }
+        .create-button {
+            display: inline-block;
+            background-color: #1d3557;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .create-button:hover {
+            background-color: #457b9d;
+        }
+    </style>
 </head>
 <body>
-    <h1>blog post h1</h1>
-    <h6>{{ object_list }}</h6>
-    <h5>{{posts}}</h5>
-
-    <h2>blog post h2</h2>
-
-    {% for post in posts %}
+    <div class="header">
         <div>
-            <a  href="{% url "blog:post_detail" pk=post.id %}"><h2> {{ post.id}} - {{ post.title }}</h2></a>
-            <a href="{% url "blog:post_edit" pk=post.id %}"><h5>Edit</h5></a> 
-            <a href="{% url "blog:post_delete" pk=post.id %}"><h5>Delete</h5></a> 
-
-            <small> {{ post.author.first_name}} {{ post.author.last_name}}  - {{ post.published_date}}</small>
-            <p> {{ post.content }}</p>
+            <!-- User avatar -->
+            {% if user.userprofile.profile_picture %}
+                <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" width="50" height="50">
+            {% else %}
+                <img src="https://via.placeholder.com/50" alt="Default Avatar" width="50" height="50">
+            {% endif %}
+            <span>Welcome {{ user.username }}</span>
         </div>
-    {% endfor %}
+        <div class="auth-buttons">
+            {% if user.is_authenticated %}
+                <!-- Logout Button -->
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <!-- Login Button -->
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
+    <div class="container">
+        <h1>Blog Posts</h1>
+        
+        <!-- Create Button -->
+        <a href="{% url 'blog:post_create' %}" class="create-button">Create New Post</a> 
+
+        {% for post in posts %}
+            <div class="post-item">
+                <div>
+                    <a href="{% url 'blog:post_detail' pk=post.id %}">
+                        <h2>{{ post.title }}</h2>
+                    </a>
+                </div>
+                <div class="buttons">
+                    <!-- Edit Button -->
+                    <a href="{% url 'blog:post_update' pk=post.id %}">Edit</a>
+                    
+                    <!-- Delete Button -->
+                    <a href="{% url 'blog:post_delete' pk=post.id %}">Delete</a>
+                    
+                    <!-- Done Button -->
+                    {% if post.status %}
+                        <button type="button" disabled class="btn-disabled">Done</button>
+                    {% else %}
+                        <a href="{% url 'blog:post_done' pk=post.id %}">Mark as Done</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </body>
 </html>
