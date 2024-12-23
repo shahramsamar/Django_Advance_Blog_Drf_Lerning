@@ -3,13 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>create post</title>
+    <title>Create Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .form-buttons input, .form-buttons a {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            width: 48%;
+        }
+        .form-buttons input:hover, .form-buttons a:hover {
+            background-color: #0056b3;
+        }
+        .form-buttons .back {
+            background-color: #6c757d;
+        }
+        .form-buttons .back:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
-    <form method="post" >{% csrf_token %}
-        {{ form.as_p}}
-        <input type="submit" value="save">
-
-    </form>
+    <div class="form-container">
+        <h1>Create a New Post</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-buttons">
+                <input type="submit" value="Save">
+                <a href="/" class="back">Back</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
