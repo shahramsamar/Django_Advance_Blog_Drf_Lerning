@@ -65,7 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     
     
-    object = UserManager ()
+    objects = UserManager ()
     
     def __str__(self):
         return self.email
@@ -91,13 +91,11 @@ class Profile(models.Model):
         return self.user.email
 
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    """
+    Automatically create or update the user profile whenever a user is saved.
+    """
     if created:
         Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender =User)   
-def save_profile(sender, instance, created,  **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    # instance.profile.save()
+    # else:
+    #     instance.profile.save()
