@@ -21,32 +21,32 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
 app_name = 'blog'
-urlpatterns = [
-    # path('cbv-index', views.IndexView.as_view(), name='cbv-index'),
-    # path('go-to-maktabkhooneh/<int:pk>/', views.RedirectToMaktab.as_view(), name='redirect_to_maktabkhooneh'),
-    path('post/', views.PostListView.as_view(), name='post_list'),
-    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
-    path('post/create/', views.PostCreateView.as_view(), name='post_create'),
-    path('post/<int:pk>/edit/', views.PostEditView.as_view(), name='post_edit'),
-    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
-    # path('api-auth/', include('rest_framework.urls'))
-    path('api/v1/', include('blog.api.v1.urls'))
-    # path('post/', views.ApiPostListView, name='post_list'),
 
-    
-    # fbv-index 
-    # path('fbv-index', indexView, name="fbv-test"),
-    
-    # cbv-index two way 
-    # path('cbv-index',views.IndexView.as_view(), name='cbv-index'),
-    # path('cbv-index',TemplateView.as_view(template_name="index.html",extra_context={'name':'ali'})),
-   
-    # path('go-to-maktabkhooneh',
-    #      RedirectView.as_view(url='https://maktabkhooneh.com/'),
-    #      name='redirect_to_maktabkhoneh'),
-  
-    # path('go-to-index',
-    #      RedirectView.as_view(pattern_name = 'blog:cbv-index'),
-    #      name='redirect_to_index'),
+urlpatterns = [
+    path('', views.PostListView.as_view(), name="post_list"),
+    path('post/<int:pk>/', views.PostDetailView.as_view(), name="post_detail"),
+    path('post/create/', views.PostCreateView.as_view(), name='post_create'),
+    path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post_update'),
+    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
+    path('post/<int:pk>/done/', views.PostDoneView.as_view(), name='post_done'),
+    path('api/v1/',include('blog.api.v1.urls')),
 ]
+
+# urlpatterns = [
+#     # path('cbv-index', views.IndexView.as_view(), name='cbv-index'),
+#     # path('go-to-maktabkhooneh/<int:pk>/', views.RedirectToMaktab.as_view(), name='redirect_to_maktabkhooneh'),
+#     # path('api-auth/', include('rest_framework.urls'))
+#     # path('post/', views.ApiPostListView, name='post_list'),
+#     # fbv-index 
+#     # path('fbv-index', indexView, name="fbv-test"),
+#     # cbv-index two way 
+#     # path('cbv-index',views.IndexView.as_view(), name='cbv-index'),
+#     # path('cbv-index',TemplateView.as_view(template_name="index.html",extra_context={'name':'ali'})),
+#     # path('go-to-maktabkhooneh',
+#     #      RedirectView.as_view(url='https://maktabkhooneh.com/'),
+#     #      name='redirect_to_maktabkhoneh'),
+#     # path('go-to-index',
+#     #      RedirectView.as_view(pattern_name = 'blog:cbv-index'),
+#     #      name='redirect_to_index'),
+# ]
 
