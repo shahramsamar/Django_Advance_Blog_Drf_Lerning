@@ -8,7 +8,7 @@ class DefaultPagination(PageNumberPagination):
     # max_page_size = 100
      page_size = 2
      def get_paginated_response(self, data):
-        return Response({
+        return Response({  
             'links': {
                 'next': self.get_next_link(),
                 'previous': self.get_previous_link()

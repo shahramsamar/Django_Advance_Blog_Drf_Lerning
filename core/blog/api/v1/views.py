@@ -269,7 +269,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
     filterset_fields = {'status':['exact'], 'author':['exact'], 'category':['exact']}
     # SearchFilter =['title']
     ordering_fields = ['published_date']
-    # pagination_class = DefaultPagination
+    pagination_class = DefaultPagination
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
