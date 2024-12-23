@@ -259,16 +259,15 @@ class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes =[IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user.id
-    #     return super().form_valid(form)
+
     #for extra link 
     # @action(method=["get"],detail=False)
     # def get_test(self,request):
     #     return Response({"detail":"ok"})
 
-    # filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
-    # filterset_fields = {'status':['exact'], 'author':['exact'], 'category':['exact']}
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
+    filterset_fields = {'status':['exact'], 'author':['exact'], 'category':['exact']}
+    # SearchFilter =['title']
     # ordering_fields = ['published_date']
     # pagination_class = DefaultPagination
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
