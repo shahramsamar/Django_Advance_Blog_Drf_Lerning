@@ -59,6 +59,7 @@
 
 # package in docker install
 docker-compose exec name container(backend) sh -c "pip install  package name " 
+docker-compose exec name container(backend) sh -c "pip install Django==4.2.7"  ? 
 docker-compose exec backend sh -c "python manage.py makemigrations"
 docker-compose exec backend sh -c "python manage.py migrate"
 docker-compose exec backend sh -c "python manage.py collectstatic"
