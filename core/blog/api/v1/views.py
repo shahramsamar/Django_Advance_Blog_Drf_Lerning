@@ -15,7 +15,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from blog.api.v1.paginations import DefaultPagination
 from rest_framework.decorators import action
+from django.core.exceptions import ObjectDoesNotExist
+from accounts.models import Profile
 
+from blog.api.v1 import serializers
 
 
 # data = {
@@ -253,19 +256,21 @@ from rest_framework.decorators import action
 # Example for ModelViewSet in CBV
 class PostModelViewSet(viewsets.ModelViewSet):
     """ getting a CRUD for posts"""
-    permission_classes =[IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes =[IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
-
+    # def form_valid(self, form):
+    #     form.instance.author = self.request.user.id
+    #     return super().form_valid(form)
     #for extra link 
     # @action(method=["get"],detail=False)
     # def get_test(self,request):
     #     return Response({"detail":"ok"})
 
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
-    filterset_fields = {'status':['exact'], 'author':['exact'], 'category':['exact']}
-    ordering_fields = ['published_date']
-    pagination_class = DefaultPagination
+    # filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter] 
+    # filterset_fields = {'status':['exact'], 'author':['exact'], 'category':['exact']}
+    # ordering_fields = ['published_date']
+    # pagination_class = DefaultPagination
 # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -273,7 +278,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
 #  """"""""""""""""""""""""""(ModelViewSet in CBV)"""""""""""""""""""""""""""""""""""""""
 # Example for ModelViewSet in CBV
 class CategoryModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
  # """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
