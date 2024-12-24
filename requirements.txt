@@ -1,8 +1,15 @@
-
-python-decouple==3.8
-Pillow
-django-filter
+# basic 
 Markdown
-coreapi
+# coreapi
 Django==4.2.7
 djangorestframework
+
+# packagess
+python-decouple
+Pillow
+django-filter
+
+
+# 3party
+drf-yasg
+drf-yasg[validation]

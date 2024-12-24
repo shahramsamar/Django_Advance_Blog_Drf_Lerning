@@ -50,7 +50,7 @@
 # show logs 
  docker-compose logs -f 
 
-
+exec backend sh -c '
 
 
 # when we have create app in container 
