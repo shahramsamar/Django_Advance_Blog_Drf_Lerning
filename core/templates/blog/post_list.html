@@ -132,10 +132,10 @@
         <div class="auth-buttons">
             {% if user.is_authenticated %}
                 <!-- Logout Button -->
-                <a href="{% url 'logout' %}">Logout</a>
+                <a href="{% url 'accounts:logout' %}">Logout</a>
             {% else %}
                 <!-- Login Button -->
-                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'accounts:login' %}">Login</a>
             {% endif %}
         </div>
     </div>
