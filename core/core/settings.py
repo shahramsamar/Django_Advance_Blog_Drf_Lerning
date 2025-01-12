@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'accounts',
     'blog', 
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'drf_yasg',
+    
 
 ]
 MIDDLEWARE = [
@@ -156,6 +158,10 @@ REST_FRAMEWORK = {
                   # public pagination
                 #   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
                 #   'PAGE_SIZE': 100
+                'DEFAULT_AUTHENTICATION_CLASSES': [
+                'rest_framework.authentication.BasicAuthentication',
+                'rest_framework.authentication.SessionAuthentication',
+                'rest_framework.authentication.TokenAuthentication',] 
                   
-                  
-                  }
+}
+
