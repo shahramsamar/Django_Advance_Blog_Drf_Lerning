@@ -1,9 +1,9 @@
 # basic 
 Markdown
-# coreapi
+coreapi
+coreschema
 Django==4.2.7
 djangorestframework
-
 # packagess
 python-decouple
 Pillow
