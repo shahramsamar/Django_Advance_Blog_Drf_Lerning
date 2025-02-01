@@ -30,4 +30,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='jwt_refresh'),
     # verify jwt token
     path('api/token/verify/', TokenVerifyView.as_view(), name='jwt_verify'),
+    # profile
+    path('Profile/',views.ProfileApiView.as_view(),name='Profile'),
+    
 ]
