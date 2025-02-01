@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-
+from accounts.api.v1 import views
 
 app_name = 'api-v1'
 
@@ -22,11 +22,18 @@ urlpatterns = [
     
     # reset password
     
-    # create jwt token
-   path('jwt/create/', TokenObtainPairView.as_view(), name='jwt_create') ,
+#    create jwt token
+#    path('jwt/create/', TokenObtainPairView.as_view(), name='jwt_create') ,
    # refresh jwt token
-   path('api/token/refresh/', TokenRefreshView.as_view(), name='jwt_refresh'),
+#    path('api/token/refresh/', TokenRefreshView.as_view(), name='jwt_refresh'),
    # verify jwt token
-   path('api/token/verify/', TokenVerifyView.as_view(), name='jwt_verify'),
+#    path('api/token/verify/', TokenVerifyView.as_view(), name='jwt_verify'),
    
+   
+   # custom jwt token
+    path('jwt/create/',views.CustomTokenObtainPairView.as_view(), name='jwt_create') ,
+   # refresh jwt token
+#    path('api/token/refresh/', TokenRefreshView.as_view(), name='jwt_refresh'),
+   # verify jwt token
+#    path('api/token/verify/', TokenVerifyView.as_view(), name='jwt_verify'),
 ]
