@@ -4,6 +4,8 @@ coreapi
 coreschema
 Django==4.2.7
 djangorestframework
+djangorestframework_simplejwt==5.3.1
+
 # packagess
 python-decouple
 Pillow
