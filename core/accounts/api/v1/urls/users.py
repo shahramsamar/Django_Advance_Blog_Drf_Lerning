@@ -21,7 +21,11 @@ urlpatterns = [
     path('change-password/',views.ChangePasswordApiView.as_view(),name='change-password'),
 
     # reset password
-    
+    # activation
+    path('activation/',views.ChangePasswordApiView.as_view(),name='change-password'),
+    # resend activation
+    # path('resend-activation/',views.ChangePasswordApiView.as_view(),name='change-password'),
+
     # create jwt token
     # path('jwt/create/', TokenObtainPairView.as_view(), name='jwt_create') , 
     # custom jwt token
