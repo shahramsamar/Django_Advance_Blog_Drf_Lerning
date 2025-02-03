@@ -19,13 +19,16 @@ urlpatterns = [
     path('token/logout/',CustomDiscardAuthToken.as_view(),name='token-logout'),
     # change password
     path('change-password/',views.ChangePasswordApiView.as_view(),name='change-password'),
+   
+    # activation
+    path('activation/confirm/<str:token>',views.ActivationApiView.as_view(),name='Activation'),
+    # resend activation
+    path('activation/resend',views.ActivationResendApiView.as_view(),name='resend-activation'),
 
     # reset password
-    # activation
-    path('activation/',views.ChangePasswordApiView.as_view(),name='change-password'),
-    # resend activation
-    # path('resend-activation/',views.ChangePasswordApiView.as_view(),name='change-password'),
 
+    # activation test
+    # path('activation/confirm/',views.EmailSend.as_view(),name='change-password'),
     # create jwt token
     # path('jwt/create/', TokenObtainPairView.as_view(), name='jwt_create') , 
     # custom jwt token

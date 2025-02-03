@@ -5,6 +5,7 @@ from django.core import exceptions
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer  
+from jwt.exceptions import ExpiredSignatureError,InvalidSignatureError
 
 
 
@@ -108,3 +109,21 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model =  Profile
         fields =['id','email','first_name','last_name','image','description']   
+        
+        
+        
+
+class ActivationResendApiSerializer(serializers.Serializer):
+      email = serializers.EmailField(required =True)
+      
+      def validate(self, attrs):
+        email = attrs.get("email")  
+        try:
+            user_obj = User.objects.get(email=email)
+        except User.DoesNotExist:
+             raise serializers.ValidationError({"detail":'user does not exist'})          
+        if user_obj.is_verified:
+             raise serializers.ValidationError({"detail":'user is already activation and verified'})      
+        attrs['user'] = user_obj
+        return super().validate(attrs) 
+      

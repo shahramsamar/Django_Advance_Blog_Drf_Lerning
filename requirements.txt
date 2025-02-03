@@ -1,17 +1,26 @@
-# basic 
-Markdown
-coreapi
-coreschema
+# general modules
 Django==4.2.7
 djangorestframework
-djangorestframework_simplejwt==5.3.1
+
 
 # packagess
 python-decouple
 Pillow
+coreapi
+coreschema
+
+
+# third party modules
 django-filter
-
-
-# 3party
+Markdown
 drf-yasg
 drf-yasg[validation]
+djangorestframework_simplejwt==5.3.1
+
+
+
+# deployment module
+
+
+# email third party modules
+django-mail-templated
