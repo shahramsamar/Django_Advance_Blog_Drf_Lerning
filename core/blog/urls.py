@@ -17,8 +17,8 @@ Including another URLconf
 from django.urls import path, include
 # from blog.views import indexView
 from blog import views
-from django.views.generic import TemplateView
-from django.views.generic.base import RedirectView
+# from django.views.generic import TemplateView
+# from django.views.generic.base import RedirectView
 
 app_name = 'blog'
 

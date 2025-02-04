@@ -73,8 +73,12 @@ docker-compose exec backend sh -c "python manage.py changepassword username or e
  docker-compose exec backend sh -c "pip install django-filter"
  docker-compose exec backend sh -c "pip install djangorestframework-simplejwt"
  docker-compose exec backend sh -c "pip install django-mail-templated"
- docker-compose exec backend sh -c "pip install -U djoser"
+
+docker-compose exec backend sh -c "pip install -U djoser"
 
 # coreapi
 docker-compose exec backend sh -c "pip install coreapi"
 
+# refactoring and test 
+docker-compose exec backend sh -c "pip install black"
+docker-compose exec backend sh -c "pip install flake8-django"
