@@ -1,6 +1,12 @@
 # use image of pytjon
 FROM python:3.8-slim-buster
 
+
+# Maintainer information
+LABEL maintainer="Shahramsamar2010@gmail.com"
+
+
+
 # show event 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
