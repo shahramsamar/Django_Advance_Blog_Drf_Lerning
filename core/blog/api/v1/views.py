@@ -3,13 +3,15 @@
 # from rest_framework.decorators import api_view, permission_classes
 from ...models import Post, Category
 from .serializers import PostSerializer, CategorySerializer
+
 # from rest_framework import status
 # from django.shortcuts import get_object_or_404
 from rest_framework.permissions import (
-    IsAuthenticated,
+    # IsAuthenticated,
     IsAuthenticatedOrReadOnly,
-    IsAdminUser,
+    # IsAdminUser,
 )
+
 # from rest_framework.views import APIView
 # from rest_framework.generics import (
 #     GenericAPIView,
@@ -25,6 +27,7 @@ from blog.api.v1.permission import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from blog.api.v1.paginations import DefaultPagination
+
 # from rest_framework.decorators import action
 # from django.core.exceptions import ObjectDoesNotExist
 # from accounts.models import Profile
@@ -153,7 +156,8 @@ from blog.api.v1.paginations import DefaultPagination
 # """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 #  """"""""""""""""""""""""""(GenericAPIView,mixins)""""""""""""""""""""""""""""""""""""
-'''class PostDetail(GenericAPIView, mixins.RetrieveModelMixin, 
+'''
+class PostDetail(GenericAPIView, mixins.RetrieveModelMixin, 
                                     mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     """ getting detail of the post and edit plus removing it"""
     permission_classes =[IsAuthenticated]
@@ -163,11 +167,13 @@ from blog.api.v1.paginations import DefaultPagination
     """retrieving the post data"""
     def get(self,request,*args,**kwargs):
         return self.retrieve(request,*args,**kwargs)
-     
+
+        
     # """editing the post data"""
     def put(self,request,*args,**kwargs):
         return self.update(request,*args,**kwargs)
     
+        
     """ deleting the post object """
     def delete(self,request,*args,**kwargs):
         return self.destroy(request,*args,**kwargs)'''

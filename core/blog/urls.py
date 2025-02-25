@@ -14,22 +14,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.urls import path, include
+
 # from blog.views import indexView
 from blog import views
+
 # from django.views.generic import TemplateView
 # from django.views.generic.base import RedirectView
 
-app_name = 'blog'
+app_name = "blog"
 
 urlpatterns = [
-    path('', views.PostListView.as_view(), name="post_list"),
-    path('post/<int:pk>/', views.PostDetailView.as_view(), name="post_detail"),
-    path('post/create/', views.PostCreateView.as_view(), name='post_create'),
-    path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post_update'),
-    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
-    path('post/<int:pk>/done/', views.PostDoneView.as_view(), name='post_done'),
-    path('api/v1/',include('blog.api.v1.urls')),
+    path("", views.PostListView.as_view(), name="post_list"),
+    path(
+        "post/<int:pk>/", views.PostDetailView.as_view(), name="post_detail"
+    ),
+    path("post/create/", views.PostCreateView.as_view(), name="post_create"),
+    path(
+        "post/<int:pk>/update/",
+        views.PostUpdateView.as_view(),
+        name="post_update",
+    ),
+    path(
+        "post/<int:pk>/delete/",
+        views.PostDeleteView.as_view(),
+        name="post_delete",
+    ),
+    path(
+        "post/<int:pk>/done/", views.PostDoneView.as_view(), name="post_done"
+    ),
+    path("api/v1/", include("blog.api.v1.urls")),
 ]
 
 # urlpatterns = [
@@ -37,9 +52,9 @@ urlpatterns = [
 #     # path('go-to-maktabkhooneh/<int:pk>/', views.RedirectToMaktab.as_view(), name='redirect_to_maktabkhooneh'),
 #     # path('api-auth/', include('rest_framework.urls'))
 #     # path('post/', views.ApiPostListView, name='post_list'),
-#     # fbv-index 
+#     # fbv-index
 #     # path('fbv-index', indexView, name="fbv-test"),
-#     # cbv-index two way 
+#     # cbv-index two way
 #     # path('cbv-index',views.IndexView.as_view(), name='cbv-index'),
 #     # path('cbv-index',TemplateView.as_view(template_name="index.html",extra_context={'name':'ali'})),
 #     # path('go-to-maktabkhooneh',
@@ -49,4 +64,3 @@ urlpatterns = [
 #     #      RedirectView.as_view(pattern_name = 'blog:cbv-index'),
 #     #      name='redirect_to_index'),
 # ]
-
